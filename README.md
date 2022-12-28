@@ -1,2 +1,2 @@
-# WinForm
-Windows form C#
+# WinForms
+Windows forms C#
