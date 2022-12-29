@@ -1,8 +1,11 @@
 using System.Windows.Forms;
 using System.Drawing;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace WinFormsApp
 {
+
 	public partial class WindowsForm : Form
 	{
 
@@ -12,28 +15,32 @@ namespace WinFormsApp
 		int triangleCount;
 		int rectangleCount;
 
+		Player? player;
+
 		public WindowsForm()
 		{
 			InitializeComponent();
+
 			graphics = CreateGraphics();
 			pen = new Pen(Color.Black);
-			lineCount =	0;
-			triangleCount =	0;
+
+			lineCount = 0;
+			triangleCount = 0;
 			rectangleCount = 0;
-			textBox_LinePoint1X.Text =		"0";
-			textBox_LinePoint1Y.Text =		"0";
-			textBox_LinePoint2X.Text =		"0";
-			textBox_LinePoint2Y.Text =		"0";
-			textBox_TrianglePoint1X.Text =	"0";
-			textBox_TrianglePoint1Y.Text =	"0";
-			textBox_TrianglePoint2X.Text =	"0";
-			textBox_TrianglePoint2Y.Text =	"0";
-			textBox_TrianglePoint3X.Text =	"0";
-			textBox_TrianglePoint3Y.Text =	"0";
+			textBox_LinePoint1X.Text = "0";
+			textBox_LinePoint1Y.Text = "0";
+			textBox_LinePoint2X.Text = "0";
+			textBox_LinePoint2Y.Text = "0";
+			textBox_TrianglePoint1X.Text = "0";
+			textBox_TrianglePoint1Y.Text = "0";
+			textBox_TrianglePoint2X.Text = "0";
+			textBox_TrianglePoint2Y.Text = "0";
+			textBox_TrianglePoint3X.Text = "0";
+			textBox_TrianglePoint3Y.Text = "0";
 			textBox_RectangleUpperLeftX.Text = "0";
 			textBox_RectangleUpperLeftY.Text = "0";
-			textBox_RectangleWidth.Text =	"0";
-			textBox_RectangleHeight.Text =	"0";
+			textBox_RectangleWidth.Text = "0";
+			textBox_RectangleHeight.Text = "0";
 		}
 
 		private void button_DrawLine_Click(object sender, EventArgs e)
@@ -52,7 +59,7 @@ namespace WinFormsApp
 				return;
 			else
 				graphics.DrawLine(pen, p1, p2);
-			
+
 			++lineCount;
 			if (lineCount >= 2)
 				label_LineCount.Text = $"{lineCount} lines drawn";
@@ -113,7 +120,7 @@ namespace WinFormsApp
 			bool isValidValue =
 				int.TryParse(textBox_RectangleUpperLeftX.Text, out UpperLeftX) &&
 				int.TryParse(textBox_RectangleUpperLeftY.Text, out UpperLeftY) &&
-				int.TryParse(textBox_RectangleWidth.Text, out width)	 &&
+				int.TryParse(textBox_RectangleWidth.Text, out width) &&
 				int.TryParse(textBox_RectangleHeight.Text, out height);
 			Rectangle rect = new Rectangle(UpperLeftX, UpperLeftY, width, height);
 
@@ -134,13 +141,95 @@ namespace WinFormsApp
 		private void button_Clear_Click(object sender, EventArgs e)
 		{
 			graphics.Clear(Color.White);
+			player = default;
 
-			lineCount =			0;
-			triangleCount =		0;
-			rectangleCount =	0;
-			label_LineCount.Text =		"no line";
-			label_TriangleCount.Text =	"no triangle";
+			lineCount = 0;
+			triangleCount = 0;
+			rectangleCount = 0;
+			label_LineCount.Text = "no line";
+			label_TriangleCount.Text = "no triangle";
 			label_RectangleCount.Text = "no rectangle";
+		}
+
+		private void button_CreatePlayer_Click(object sender, EventArgs e)
+		{
+			player = new Player(pen, graphics);
+		}
+
+		private void GetKeyDown(object sender, KeyEventArgs e)
+		{
+			Refresh();
+			if (player != null)
+			{
+				if (e.KeyCode == Keys.A)
+				{
+					player.Move(-1, 0);
+				}
+				if (e.KeyCode == Keys.D)
+				{
+					player.Move(+1, 0);
+				}
+				if (e.KeyCode == Keys.W)
+				{
+					player.Move(0, -1);
+				}
+				if (e.KeyCode == Keys.S)
+				{
+					player.Move(0, +1);
+				}
+			}
+
+			//switch (e.KeyCode)
+			//{
+			//	case Keys.Left:
+			//		player.MovePlayer(-1, 0);
+			//		break;
+			//	case Keys.Right:
+			//		player.MovePlayer(+1, 0);
+			//		break;
+			//	case Keys.Up:
+			//		player.MovePlayer(0, -1);
+			//		break;
+			//	case Keys.Down:
+			//		player.MovePlayer(0, +1);
+			//		break;
+			//}
+		}
+	}
+
+	class Player
+	{
+		public const int PLAYER_WIDTH = 50;
+		public const int PLAYER_HEIGHT = 50;
+		public const int PLAYER_SPEED = 10;
+
+		public Rectangle playerShape;
+		private int playerX = 0;
+		private int playerY = 0;
+
+		Pen pen;
+		Graphics graphics;
+
+		public Player(Pen pen_, Graphics graphics_)
+		{
+			pen = pen_;
+			graphics = graphics_;
+
+			playerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
+			Draw();
+		}
+
+		public void Move(int xDirection, int yDirection)
+		{
+			playerX += xDirection * PLAYER_SPEED;
+			playerY += yDirection * PLAYER_SPEED;
+			playerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
+			Draw();
+		}
+
+		private void Draw()
+		{
+			graphics.DrawRectangle(pen, playerShape);
 		}
 	}
 }
