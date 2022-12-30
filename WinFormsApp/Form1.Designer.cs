@@ -82,10 +82,11 @@
 			// label_LineCount
 			// 
 			this.label_LineCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label_LineCount.Location = new System.Drawing.Point(23, 549);
+			this.label_LineCount.Location = new System.Drawing.Point(19, 549);
 			this.label_LineCount.Name = "label_LineCount";
-			this.label_LineCount.Size = new System.Drawing.Size(99, 25);
+			this.label_LineCount.Size = new System.Drawing.Size(110, 25);
 			this.label_LineCount.TabIndex = 3;
+			this.label_LineCount.Text = "선 개수: 0";
 			this.label_LineCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label_TriangleCount
@@ -95,6 +96,7 @@
 			this.label_TriangleCount.Name = "label_TriangleCount";
 			this.label_TriangleCount.Size = new System.Drawing.Size(133, 25);
 			this.label_TriangleCount.TabIndex = 5;
+			this.label_TriangleCount.Text = "삼각형 개수: 0";
 			this.label_TriangleCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// button_DrawTriangle
@@ -126,6 +128,7 @@
 			this.label_RectangleCount.Name = "label_RectangleCount";
 			this.label_RectangleCount.Size = new System.Drawing.Size(133, 25);
 			this.label_RectangleCount.TabIndex = 13;
+			this.label_RectangleCount.Text = "사각형 개수: 0";
 			this.label_RectangleCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// button_DrawRectangle
