@@ -8,12 +8,12 @@ namespace WinFormsApp
 
 	public partial class WindowsForm : Form
 	{
-
 		Graphics graphics;
 		Pen pen;
-		int lineCount;
-		int triangleCount;
-		int rectangleCount;
+
+		List<Point[]> lines;
+		List<Point[]> triangles;
+		List<Rectangle> rectangles;
 
 		Player? player;
 
@@ -24,9 +24,10 @@ namespace WinFormsApp
 			graphics = CreateGraphics();
 			pen = new Pen(Color.Black);
 
-			lineCount = 0;
-			triangleCount = 0;
-			rectangleCount = 0;
+			lines = new List<Point[]>();
+			triangles = new List<Point[]>();
+			rectangles = new List<Rectangle>();
+
 			textBox_LinePoint1X.Text = "0";
 			textBox_LinePoint1Y.Text = "0";
 			textBox_LinePoint2X.Text = "0";
@@ -58,15 +59,13 @@ namespace WinFormsApp
 			if (!isValidValue || p1 == p2)
 				return;
 			else
-				graphics.DrawLine(pen, p1, p2);
+			{
+				Point[] line = new Point[2] { p1, p2 };
+				lines.Add(line);
+				Refresh();
 
-			++lineCount;
-			if (lineCount >= 2)
-				label_LineCount.Text = $"{lineCount} lines drawn";
-			else if (lineCount == 1)
-				label_LineCount.Text = $"{lineCount} line drawn";
-			else
-				label_LineCount.Text = $"no line";
+				label_LineCount.Text = $"선 개수: {lines.Count}";
+			}
 		}
 
 		private void button_DrawTriangle_Click(object sender, EventArgs e)
@@ -88,6 +87,7 @@ namespace WinFormsApp
 			if (!isValidValue || p1 == p2 || p2 == p3 || p3 == p1)
 				return;
 
+			//세 점이 한 직선 위에 있는지 판단
 			double length1, length2, length3;
 			length1 = Math.Sqrt(Math.Pow(p2X - p1X, 2) + Math.Pow(p2Y - p1Y, 2));
 			length2 = Math.Sqrt(Math.Pow(p3X - p2X, 2) + Math.Pow(p3Y - p2Y, 2));
@@ -100,18 +100,12 @@ namespace WinFormsApp
 				return;
 			else
 			{
-				graphics.DrawLine(pen, p1, p2);
-				graphics.DrawLine(pen, p2, p3);
-				graphics.DrawLine(pen, p3, p1);
-			}
+				Point[] tri = new Point[3] { p1, p2, p3 };
+				triangles.Add(tri);
+				Refresh();
 
-			++triangleCount;
-			if (triangleCount >= 2)
-				label_TriangleCount.Text = $"{triangleCount} triangles drawn";
-			else if (triangleCount == 1)
-				label_TriangleCount.Text = $"{triangleCount} triangle drawn";
-			else
-				label_TriangleCount.Text = $"no triangle";
+				label_TriangleCount.Text = $"삼각형 개수: {triangles.Count}";
+			}
 		}
 		private void button_DrawRectangle_Click(object sender, EventArgs e)
 		{
@@ -127,15 +121,12 @@ namespace WinFormsApp
 			if (!isValidValue || width == 0 || height == 0)
 				return;
 			else
-				graphics.DrawRectangle(pen, rect);
+			{
+				rectangles.Add(rect);
+				Refresh();
 
-			++rectangleCount;
-			if (rectangleCount >= 2)
-				label_RectangleCount.Text = $"{rectangleCount} rectangles drawn";
-			else if (rectangleCount == 1)
-				label_RectangleCount.Text = $"{rectangleCount} rectangle drawn";
-			else
-				label_RectangleCount.Text = $"no rectangle";
+				label_RectangleCount.Text = $"사각형 개수: {rectangles.Count}";
+			}
 		}
 
 		private void button_Clear_Click(object sender, EventArgs e)
@@ -143,22 +134,25 @@ namespace WinFormsApp
 			graphics.Clear(Color.White);
 			player = default;
 
-			lineCount = 0;
-			triangleCount = 0;
-			rectangleCount = 0;
-			label_LineCount.Text = "no line";
-			label_TriangleCount.Text = "no triangle";
-			label_RectangleCount.Text = "no rectangle";
+			lines.Clear();
+			triangles.Clear();
+			rectangles.Clear();
+
+			label_LineCount.Text = $"선 개수: {lines.Count}";
+			label_TriangleCount.Text = $"삼각형 개수: {triangles.Count}";
+			label_RectangleCount.Text = $"사각형 개수: {rectangles.Count}";
 		}
 
 		private void button_CreatePlayer_Click(object sender, EventArgs e)
 		{
-			player = new Player(pen, graphics);
+			if (player == null)
+				player = new Player();
+
+			Refresh();
 		}
 
 		private void GetKeyDown(object sender, KeyEventArgs e)
 		{
-			Refresh();
 			if (player != null)
 			{
 				if (e.KeyCode == Keys.A)
@@ -179,57 +173,56 @@ namespace WinFormsApp
 				}
 			}
 
-			//switch (e.KeyCode)
-			//{
-			//	case Keys.Left:
-			//		player.MovePlayer(-1, 0);
-			//		break;
-			//	case Keys.Right:
-			//		player.MovePlayer(+1, 0);
-			//		break;
-			//	case Keys.Up:
-			//		player.MovePlayer(0, -1);
-			//		break;
-			//	case Keys.Down:
-			//		player.MovePlayer(0, +1);
-			//		break;
-			//}
+			Refresh();
+		}
+
+		private void WindowsForm_Paint(object sender, PaintEventArgs e)
+		{
+			Graphics graphics = e.Graphics;
+
+			if (player != null)
+			{
+				graphics.DrawRectangle(pen, player.PlayerShape);
+			}
+
+			if (lines != null)
+			{
+				for (int i = 0; i < lines.Count; i++)
+					graphics.DrawLine(pen, lines[i][0], lines[i][1]);
+			}
+			if (triangles != null)
+			{
+				for (int i = 0; i < triangles.Count; i++)
+					graphics.DrawPolygon(pen, triangles[i]);
+			}
+			if (rectangles != null)
+			{
+				foreach (var rect in rectangles)
+					graphics.DrawRectangle(pen, rect);
+			}
 		}
 	}
 
 	class Player
 	{
-		public const int PLAYER_WIDTH = 50;
-		public const int PLAYER_HEIGHT = 50;
-		public const int PLAYER_SPEED = 10;
+		const int PLAYER_WIDTH = 50;
+		const int PLAYER_HEIGHT = 50;
+		const int PLAYER_SPEED = 10;
 
-		public Rectangle playerShape;
+		public Rectangle PlayerShape { get; private set; }
 		private int playerX = 0;
 		private int playerY = 0;
 
-		Pen pen;
-		Graphics graphics;
-
-		public Player(Pen pen_, Graphics graphics_)
+		public Player()
 		{
-			pen = pen_;
-			graphics = graphics_;
-
-			playerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
-			Draw();
+			PlayerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
 		}
 
 		public void Move(int xDirection, int yDirection)
 		{
 			playerX += xDirection * PLAYER_SPEED;
 			playerY += yDirection * PLAYER_SPEED;
-			playerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
-			Draw();
-		}
-
-		private void Draw()
-		{
-			graphics.DrawRectangle(pen, playerShape);
+			PlayerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
 		}
 	}
 }

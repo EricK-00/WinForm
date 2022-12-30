@@ -75,7 +75,7 @@
 			this.button_DrawLine.Name = "button_DrawLine";
 			this.button_DrawLine.Size = new System.Drawing.Size(110, 37);
 			this.button_DrawLine.TabIndex = 1;
-			this.button_DrawLine.Text = "Draw Line";
+			this.button_DrawLine.Text = "선 그리기";
 			this.button_DrawLine.UseVisualStyleBackColor = true;
 			this.button_DrawLine.Click += new System.EventHandler(this.button_DrawLine_Click);
 			// 
@@ -86,7 +86,6 @@
 			this.label_LineCount.Name = "label_LineCount";
 			this.label_LineCount.Size = new System.Drawing.Size(99, 25);
 			this.label_LineCount.TabIndex = 3;
-			this.label_LineCount.Text = "no line";
 			this.label_LineCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label_TriangleCount
@@ -96,7 +95,6 @@
 			this.label_TriangleCount.Name = "label_TriangleCount";
 			this.label_TriangleCount.Size = new System.Drawing.Size(133, 25);
 			this.label_TriangleCount.TabIndex = 5;
-			this.label_TriangleCount.Text = "no triangle";
 			this.label_TriangleCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// button_DrawTriangle
@@ -106,7 +104,7 @@
 			this.button_DrawTriangle.Name = "button_DrawTriangle";
 			this.button_DrawTriangle.Size = new System.Drawing.Size(133, 37);
 			this.button_DrawTriangle.TabIndex = 4;
-			this.button_DrawTriangle.Text = "Draw Triangle";
+			this.button_DrawTriangle.Text = "삼각형 그리기";
 			this.button_DrawTriangle.UseVisualStyleBackColor = true;
 			this.button_DrawTriangle.Click += new System.EventHandler(this.button_DrawTriangle_Click);
 			// 
@@ -128,7 +126,6 @@
 			this.label_RectangleCount.Name = "label_RectangleCount";
 			this.label_RectangleCount.Size = new System.Drawing.Size(133, 25);
 			this.label_RectangleCount.TabIndex = 13;
-			this.label_RectangleCount.Text = "no rectangle";
 			this.label_RectangleCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// button_DrawRectangle
@@ -138,7 +135,7 @@
 			this.button_DrawRectangle.Name = "button_DrawRectangle";
 			this.button_DrawRectangle.Size = new System.Drawing.Size(133, 37);
 			this.button_DrawRectangle.TabIndex = 12;
-			this.button_DrawRectangle.Text = "Draw Rectangle";
+			this.button_DrawRectangle.Text = "사각형 그리기";
 			this.button_DrawRectangle.UseVisualStyleBackColor = true;
 			this.button_DrawRectangle.Click += new System.EventHandler(this.button_DrawRectangle_Click);
 			// 
@@ -184,9 +181,9 @@
 			this.label_LinePoint1.AutoSize = true;
 			this.label_LinePoint1.Location = new System.Drawing.Point(19, 454);
 			this.label_LinePoint1.Name = "label_LinePoint1";
-			this.label_LinePoint1.Size = new System.Drawing.Size(46, 15);
+			this.label_LinePoint1.Size = new System.Drawing.Size(30, 15);
 			this.label_LinePoint1.TabIndex = 18;
-			this.label_LinePoint1.Text = "Point 1";
+			this.label_LinePoint1.Text = "점 1";
 			// 
 			// textBox_LinePoint1Y
 			// 
@@ -210,9 +207,9 @@
 			this.label_LinePoint2.AutoSize = true;
 			this.label_LinePoint2.Location = new System.Drawing.Point(19, 483);
 			this.label_LinePoint2.Name = "label_LinePoint2";
-			this.label_LinePoint2.Size = new System.Drawing.Size(46, 15);
+			this.label_LinePoint2.Size = new System.Drawing.Size(30, 15);
 			this.label_LinePoint2.TabIndex = 21;
-			this.label_LinePoint2.Text = "Point 2";
+			this.label_LinePoint2.Text = "점 2";
 			// 
 			// label_LinePointX
 			// 
@@ -256,9 +253,9 @@
 			this.label_TrianglePoint1.AutoSize = true;
 			this.label_TrianglePoint1.Location = new System.Drawing.Point(425, 427);
 			this.label_TrianglePoint1.Name = "label_TrianglePoint1";
-			this.label_TrianglePoint1.Size = new System.Drawing.Size(46, 15);
+			this.label_TrianglePoint1.Size = new System.Drawing.Size(30, 15);
 			this.label_TrianglePoint1.TabIndex = 26;
-			this.label_TrianglePoint1.Text = "Point 1";
+			this.label_TrianglePoint1.Text = "점 1";
 			// 
 			// textBox_TrianglePoint1Y
 			// 
@@ -282,9 +279,9 @@
 			this.label_TrianglePoint2.AutoSize = true;
 			this.label_TrianglePoint2.Location = new System.Drawing.Point(425, 456);
 			this.label_TrianglePoint2.Name = "label_TrianglePoint2";
-			this.label_TrianglePoint2.Size = new System.Drawing.Size(46, 15);
+			this.label_TrianglePoint2.Size = new System.Drawing.Size(30, 15);
 			this.label_TrianglePoint2.TabIndex = 29;
-			this.label_TrianglePoint2.Text = "Point 2";
+			this.label_TrianglePoint2.Text = "점 2";
 			// 
 			// textBox_TrianglePoint3X
 			// 
@@ -308,9 +305,9 @@
 			this.label_TrianglePoint3.AutoSize = true;
 			this.label_TrianglePoint3.Location = new System.Drawing.Point(425, 485);
 			this.label_TrianglePoint3.Name = "label_TrianglePoint3";
-			this.label_TrianglePoint3.Size = new System.Drawing.Size(46, 15);
+			this.label_TrianglePoint3.Size = new System.Drawing.Size(30, 15);
 			this.label_TrianglePoint3.TabIndex = 34;
-			this.label_TrianglePoint3.Text = "Point 3";
+			this.label_TrianglePoint3.Text = "점 3";
 			// 
 			// label_RectangleWidth
 			// 
@@ -318,9 +315,9 @@
 			this.label_RectangleWidth.AutoSize = true;
 			this.label_RectangleWidth.Location = new System.Drawing.Point(707, 482);
 			this.label_RectangleWidth.Name = "label_RectangleWidth";
-			this.label_RectangleWidth.Size = new System.Drawing.Size(39, 15);
+			this.label_RectangleWidth.Size = new System.Drawing.Size(31, 15);
 			this.label_RectangleWidth.TabIndex = 37;
-			this.label_RectangleWidth.Text = "Width";
+			this.label_RectangleWidth.Text = "너비";
 			// 
 			// textBox_RectangleWidth
 			// 
@@ -344,9 +341,9 @@
 			this.label_RectangleHeight.AutoSize = true;
 			this.label_RectangleHeight.Location = new System.Drawing.Point(796, 483);
 			this.label_RectangleHeight.Name = "label_RectangleHeight";
-			this.label_RectangleHeight.Size = new System.Drawing.Size(43, 15);
+			this.label_RectangleHeight.Size = new System.Drawing.Size(31, 15);
 			this.label_RectangleHeight.TabIndex = 40;
-			this.label_RectangleHeight.Text = "Height";
+			this.label_RectangleHeight.Text = "높이";
 			// 
 			// label_RectangleUpperLeftX
 			// 
@@ -380,11 +377,11 @@
 			// 
 			this.label_RectangleUpperLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label_RectangleUpperLeft.AutoSize = true;
-			this.label_RectangleUpperLeft.Location = new System.Drawing.Point(683, 454);
+			this.label_RectangleUpperLeft.Location = new System.Drawing.Point(703, 453);
 			this.label_RectangleUpperLeft.Name = "label_RectangleUpperLeft";
-			this.label_RectangleUpperLeft.Size = new System.Drawing.Size(63, 15);
+			this.label_RectangleUpperLeft.Size = new System.Drawing.Size(43, 15);
 			this.label_RectangleUpperLeft.TabIndex = 47;
-			this.label_RectangleUpperLeft.Text = "Upper Left";
+			this.label_RectangleUpperLeft.Text = "좌상단";
 			// 
 			// textBox_TrianglePoint2Y
 			// 
@@ -401,7 +398,7 @@
 			this.button_CreatePlayer.Name = "button_CreatePlayer";
 			this.button_CreatePlayer.Size = new System.Drawing.Size(126, 23);
 			this.button_CreatePlayer.TabIndex = 49;
-			this.button_CreatePlayer.Text = "Create Player";
+			this.button_CreatePlayer.Text = "플레이어 생성";
 			this.button_CreatePlayer.UseVisualStyleBackColor = true;
 			this.button_CreatePlayer.Click += new System.EventHandler(this.button_CreatePlayer_Click);
 			// 
@@ -461,6 +458,7 @@
 			this.KeyPreview = true;
 			this.Name = "WindowsForm";
 			this.Text = "WindowsForm";
+			this.Paint += new System.Windows.Forms.PaintEventHandler(this.WindowsForm_Paint);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GetKeyDown);
 			this.ResumeLayout(false);
 			this.PerformLayout();
