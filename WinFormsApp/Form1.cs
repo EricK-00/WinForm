@@ -155,21 +155,84 @@ namespace WinFormsApp
 		{
 			if (player != null)
 			{
+				Rectangle temp;
+				int speed = player.Speed;
+
 				if (e.KeyCode == Keys.A)
 				{
 					player.Move(-1, 0);
+					for (int i = 0; i < rectangles.Count; i++)
+					{
+						if (player.Shape.Left < rectangles[i].Right &&
+							player.Shape.Left > rectangles[i].Left && player.Shape.Left < rectangles[i].Right &&
+							(player.Shape.Top > rectangles[i].Top && player.Shape.Top < rectangles[i].Bottom ||
+							player.Shape.Bottom > rectangles[i].Top && player.Shape.Bottom < rectangles[i].Bottom ||
+							player.Shape.Top <= rectangles[i].Top && player.Shape.Bottom >= rectangles[i].Bottom))
+						{
+							rectangles[i] = new Rectangle(
+								rectangles[i].X + (-1 * (rectangles[i].Right - player.Shape.Left)),
+								rectangles[i].Y,
+								rectangles[i].Width,
+								rectangles[i].Height);
+						}
+					}
 				}
 				if (e.KeyCode == Keys.D)
 				{
 					player.Move(+1, 0);
+					for (int i = 0; i < rectangles.Count; i++)
+					{
+						if (player.Shape.Right > rectangles[i].Left &&
+							player.Shape.Right > rectangles[i].Left && player.Shape.Right < rectangles[i].Right &&
+							(player.Shape.Top > rectangles[i].Top && player.Shape.Top < rectangles[i].Bottom ||
+							player.Shape.Bottom > rectangles[i].Top && player.Shape.Bottom < rectangles[i].Bottom ||
+							player.Shape.Top <= rectangles[i].Top && player.Shape.Bottom >= rectangles[i].Bottom))
+						{
+							rectangles[i] = new Rectangle(
+								rectangles[i].X + (+1 * (player.Shape.Right - rectangles[i].Left)),
+								rectangles[i].Y,
+								rectangles[i].Width,
+								rectangles[i].Height);
+						}
+					}
 				}
 				if (e.KeyCode == Keys.W)
 				{
 					player.Move(0, -1);
+					for (int i = 0; i < rectangles.Count; i++)
+					{
+						if (player.Shape.Top < rectangles[i].Bottom &&
+							player.Shape.Top > rectangles[i].Top && player.Shape.Top < rectangles[i].Bottom &&
+							(player.Shape.Left > rectangles[i].Left && player.Shape.Left < rectangles[i].Right ||
+							player.Shape.Right > rectangles[i].Left && player.Shape.Right < rectangles[i].Right ||
+							player.Shape.Left <= rectangles[i].Left && player.Shape.Right >= rectangles[i].Right))
+						{
+							rectangles[i] = new Rectangle(
+								rectangles[i].X,
+								rectangles[i].Y + (-1 * (rectangles[i].Bottom - player.Shape.Top)),
+								rectangles[i].Width,
+								rectangles[i].Height);
+						}
+					}
 				}
 				if (e.KeyCode == Keys.S)
 				{
 					player.Move(0, +1);
+					for (int i = 0; i < rectangles.Count; i++)
+					{
+						if (player.Shape.Bottom > rectangles[i].Top &&
+							player.Shape.Bottom > rectangles[i].Top && player.Shape.Bottom < rectangles[i].Bottom &&
+							(player.Shape.Left > rectangles[i].Left && player.Shape.Left < rectangles[i].Right ||
+							player.Shape.Right > rectangles[i].Left && player.Shape.Right < rectangles[i].Right ||
+							player.Shape.Left <= rectangles[i].Left && player.Shape.Right >= rectangles[i].Right))
+						{
+							rectangles[i] = new Rectangle(
+								rectangles[i].X,
+								rectangles[i].Y + (+1 * (player.Shape.Bottom - rectangles[i].Top)),
+								rectangles[i].Width,
+								rectangles[i].Height);
+						}
+					}
 				}
 			}
 
@@ -182,7 +245,7 @@ namespace WinFormsApp
 
 			if (player != null)
 			{
-				graphics.DrawRectangle(pen, player.PlayerShape);
+				graphics.DrawRectangle(pen, player.Shape);
 			}
 
 			if (lines != null)
@@ -205,24 +268,29 @@ namespace WinFormsApp
 
 	class Player
 	{
-		const int PLAYER_WIDTH = 50;
-		const int PLAYER_HEIGHT = 50;
-		const int PLAYER_SPEED = 10;
+		public int X { get; private set; }
+		public int Y { get; private set; }
+		public int Width { get; private set; }
+		public int Height { get; private set; }
+		public int Speed { get; private set; }
 
-		public Rectangle PlayerShape { get; private set; }
-		private int playerX = 0;
-		private int playerY = 0;
+		public Rectangle Shape { get; private set; }
 
 		public Player()
 		{
-			PlayerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
+			Width = 50;
+			Height = 50;
+			Speed = 10;
+			X = 0;
+			Y = 0;
+			Shape = new Rectangle(X, Y, Width, Height);
 		}
 
 		public void Move(int xDirection, int yDirection)
 		{
-			playerX += xDirection * PLAYER_SPEED;
-			playerY += yDirection * PLAYER_SPEED;
-			PlayerShape = new Rectangle(playerX, playerY, PLAYER_WIDTH, PLAYER_HEIGHT);
+			X += xDirection * Speed;
+			Y += yDirection * Speed;
+			Shape = new Rectangle(X, Y, Width, Height);
 		}
 	}
 }

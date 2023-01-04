@@ -407,11 +407,11 @@
 			// 
 			// label_PlayerControlDescription
 			// 
-			this.label_PlayerControlDescription.Location = new System.Drawing.Point(419, 38);
+			this.label_PlayerControlDescription.Location = new System.Drawing.Point(410, 38);
 			this.label_PlayerControlDescription.Name = "label_PlayerControlDescription";
-			this.label_PlayerControlDescription.Size = new System.Drawing.Size(100, 23);
+			this.label_PlayerControlDescription.Size = new System.Drawing.Size(126, 46);
 			this.label_PlayerControlDescription.TabIndex = 50;
-			this.label_PlayerControlDescription.Text = "Keys: W A S D";
+			this.label_PlayerControlDescription.Text = "Keys: W A S D\r\n사각형은 밀 수 있음";
 			this.label_PlayerControlDescription.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// WindowsForm
