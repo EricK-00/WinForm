@@ -155,25 +155,17 @@ namespace WinFormsApp
 		{
 			if (player != null)
 			{
-				Rectangle temp;
-				int speed = player.Speed;
-
 				if (e.KeyCode == Keys.A)
 				{
 					player.Move(-1, 0);
 					for (int i = 0; i < rectangles.Count; i++)
 					{
 						if (player.Shape.Left < rectangles[i].Right &&
-							player.Shape.Left > rectangles[i].Left && player.Shape.Left < rectangles[i].Right &&
-							(player.Shape.Top > rectangles[i].Top && player.Shape.Top < rectangles[i].Bottom ||
-							player.Shape.Bottom > rectangles[i].Top && player.Shape.Bottom < rectangles[i].Bottom ||
-							player.Shape.Top <= rectangles[i].Top && player.Shape.Bottom >= rectangles[i].Bottom))
+							Utility.DetectRectCollision(player.Shape, rectangles[i]))
 						{
 							rectangles[i] = new Rectangle(
-								rectangles[i].X + (-1 * (rectangles[i].Right - player.Shape.Left)),
-								rectangles[i].Y,
-								rectangles[i].Width,
-								rectangles[i].Height);
+								rectangles[i].X - (rectangles[i].Right - player.Shape.Left), rectangles[i].Y,
+								rectangles[i].Width, rectangles[i].Height);
 						}
 					}
 				}
@@ -183,16 +175,11 @@ namespace WinFormsApp
 					for (int i = 0; i < rectangles.Count; i++)
 					{
 						if (player.Shape.Right > rectangles[i].Left &&
-							player.Shape.Right > rectangles[i].Left && player.Shape.Right < rectangles[i].Right &&
-							(player.Shape.Top > rectangles[i].Top && player.Shape.Top < rectangles[i].Bottom ||
-							player.Shape.Bottom > rectangles[i].Top && player.Shape.Bottom < rectangles[i].Bottom ||
-							player.Shape.Top <= rectangles[i].Top && player.Shape.Bottom >= rectangles[i].Bottom))
+							Utility.DetectRectCollision(player.Shape, rectangles[i]))
 						{
 							rectangles[i] = new Rectangle(
-								rectangles[i].X + (+1 * (player.Shape.Right - rectangles[i].Left)),
-								rectangles[i].Y,
-								rectangles[i].Width,
-								rectangles[i].Height);
+								rectangles[i].X + (player.Shape.Right - rectangles[i].Left), rectangles[i].Y,
+								rectangles[i].Width, rectangles[i].Height);
 						}
 					}
 				}
@@ -202,16 +189,11 @@ namespace WinFormsApp
 					for (int i = 0; i < rectangles.Count; i++)
 					{
 						if (player.Shape.Top < rectangles[i].Bottom &&
-							player.Shape.Top > rectangles[i].Top && player.Shape.Top < rectangles[i].Bottom &&
-							(player.Shape.Left > rectangles[i].Left && player.Shape.Left < rectangles[i].Right ||
-							player.Shape.Right > rectangles[i].Left && player.Shape.Right < rectangles[i].Right ||
-							player.Shape.Left <= rectangles[i].Left && player.Shape.Right >= rectangles[i].Right))
+							Utility.DetectRectCollision(player.Shape, rectangles[i]))
 						{
 							rectangles[i] = new Rectangle(
-								rectangles[i].X,
-								rectangles[i].Y + (-1 * (rectangles[i].Bottom - player.Shape.Top)),
-								rectangles[i].Width,
-								rectangles[i].Height);
+								rectangles[i].X, rectangles[i].Y - (rectangles[i].Bottom - player.Shape.Top),
+								rectangles[i].Width, rectangles[i].Height);
 						}
 					}
 				}
@@ -221,16 +203,11 @@ namespace WinFormsApp
 					for (int i = 0; i < rectangles.Count; i++)
 					{
 						if (player.Shape.Bottom > rectangles[i].Top &&
-							player.Shape.Bottom > rectangles[i].Top && player.Shape.Bottom < rectangles[i].Bottom &&
-							(player.Shape.Left > rectangles[i].Left && player.Shape.Left < rectangles[i].Right ||
-							player.Shape.Right > rectangles[i].Left && player.Shape.Right < rectangles[i].Right ||
-							player.Shape.Left <= rectangles[i].Left && player.Shape.Right >= rectangles[i].Right))
+							Utility.DetectRectCollision(player.Shape, rectangles[i]))
 						{
 							rectangles[i] = new Rectangle(
-								rectangles[i].X,
-								rectangles[i].Y + (+1 * (player.Shape.Bottom - rectangles[i].Top)),
-								rectangles[i].Width,
-								rectangles[i].Height);
+								rectangles[i].X, rectangles[i].Y + (player.Shape.Bottom - rectangles[i].Top),
+								rectangles[i].Width, rectangles[i].Height);
 						}
 					}
 				}
@@ -263,34 +240,6 @@ namespace WinFormsApp
 				foreach (var rect in rectangles)
 					graphics.DrawRectangle(pen, rect);
 			}
-		}
-	}
-
-	class Player
-	{
-		public int X { get; private set; }
-		public int Y { get; private set; }
-		public int Width { get; private set; }
-		public int Height { get; private set; }
-		public int Speed { get; private set; }
-
-		public Rectangle Shape { get; private set; }
-
-		public Player()
-		{
-			Width = 50;
-			Height = 50;
-			Speed = 10;
-			X = 0;
-			Y = 0;
-			Shape = new Rectangle(X, Y, Width, Height);
-		}
-
-		public void Move(int xDirection, int yDirection)
-		{
-			X += xDirection * Speed;
-			Y += yDirection * Speed;
-			Shape = new Rectangle(X, Y, Width, Height);
 		}
 	}
 }
